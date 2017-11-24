@@ -1,32 +1,28 @@
 {
-    "name": "pyaesone17/active-state",
+    "name": "arcesilas/active-state",
     "description": "Active State Checker For Laravel Url",
     "keywords": ["dynamic url","laravel","url checker","request"],
-    "homepage": "https://github.com/pyaesone17/active-state",
+    "homepage": "https://github.com/Arcesilas/active-state",
     "authors": [
         {
             "name": "Pyae Sone Nyein",
             "email": "promise286@gmail.com"
+        },
+        {
+            "name": "Olivier Cecillon",
+            "email": "arcesilas@neutre.email"
         }
     ],
-    "require": {},
+    "require": {
+        "laravel/framework": "~5.4.0"
+    },
  	"autoload": {
 	    "psr-4": {
-	        "Pyaesone17\\ActiveState\\": "src/"
+	        "Arcesilas\\ActiveState\\": "src/"
 	    },
         "files": [
             "src/helpers.php"
         ]
     },
-    "license": "MIT",
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Pyaesone17\\ActiveState\\ActiveStateServiceProvider"
-            ],
-            "aliases": {
-                "Active": "Pyaesone17\\ActiveState\\ActiveFacade"
-            }
-        }
-    }
+    "license": "MIT"
 }
