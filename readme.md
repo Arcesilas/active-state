@@ -39,7 +39,7 @@ And add the service provider in `config/app.php`
 ```php
 'providers' => [
     ........,
-    Pyaesone17\ActiveState\ActiveStateServiceProvider::class,
+    Arcesilas\ActiveState\ActiveStateServiceProvider::class,
 ]
 ```
 
@@ -48,13 +48,13 @@ If you want to use the facade, add this to your facades in `config/app.php`
 ```php
 'aliases' => [
     ........,
-    'Active' => Pyaesone17\ActiveState\ActiveFacade::class,
+    'Active' => Arcesilas\ActiveState\ActiveFacade::class,
 ]
 
 ```
 To publish configuration file
 ```
-php artisan vendor:publish --provider="Pyaesone17\ActiveState\ActiveStateServiceProvider"
+php artisan vendor:publish --provider="Arcesilas\ActiveState\ActiveStateServiceProvider"
 ```
 
 ## Usage

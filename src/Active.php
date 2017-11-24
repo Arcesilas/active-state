@@ -1,5 +1,5 @@
 <?php
-namespace Pyaesone17\ActiveState;
+namespace Arcesilas\ActiveState;
 use Illuminate\Support\Str;
 use Request;
 /**

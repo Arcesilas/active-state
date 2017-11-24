@@ -1,6 +1,6 @@
 <?php
 
-namespace Pyaesone17\ActiveState;
+namespace Arcesilas\ActiveState;
 
 use Illuminate\Support\ServiceProvider;
 use Blade;
@@ -51,7 +51,7 @@ class ActiveStateServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('active-state', function ($app) {
-            return new \Pyaesone17\ActiveState\Active($app->request);
+            return new \Arcesilas\ActiveState\Active($app->request);
         });
 
         $this->mergeConfigFrom(
