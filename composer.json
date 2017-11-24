@@ -1,7 +1,7 @@
 {
     "name": "arcesilas/active-state",
-    "description": "Active State Checker For Laravel Url",
-    "keywords": ["dynamic url","laravel","url checker","request"],
+    "description": "Laravel link active state helper based on URL, route or query string",
+    "keywords": ["laravel", "active", "link", "route", "request"],
     "homepage": "https://github.com/Arcesilas/active-state",
     "authors": [
         {
