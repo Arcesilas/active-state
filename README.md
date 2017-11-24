@@ -24,12 +24,33 @@ Or, if you prefer to check the route:
 ```
 
 ## Installation
+
 Install with `composer`:
 
-Laravel 5.5, use the latest
+### Laravel 5.5
+
+Use the latest:
+
 ```
 composer require arcesilas/active-state:^2.0
 ```
+
+You're done! Service provider and Facade are automatically registered by Laravel.
+
+If you don't want to use the Facade or want to use your own Service Provider, add this to your `composer.json`:
+
+```json
+"extra": {
+    "laravel": {
+        "dont-discover": [
+            "arcesilas/active-state"
+        ]
+    }
+},
+```
+See [Package discovery](https://laravel.com/docs/5.5/packages#package-discovery) section on Laravel documentation.
+
+### Laravel 5.4 and before
 
 For older versions of Laravel, please use appropriate versions of Active State:
 
