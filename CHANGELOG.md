@@ -6,7 +6,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
-## [2.0.0] - 2015-11-15
+## [2.0.1] - 2017-11-24
+
+## Added
+- Details about installation
+- Keyword in composer.json
+
+## Fixed
+- Typo in Readme
+
+## [2.0.0] - 2017-11-15
 
 ### Changed
 - Forked and detached repository from pyaesone17/active-state
