@@ -64,6 +64,30 @@ class Active
         return $result;
     }
 
+    public function checkRouteParamsBoolean($route, array $routeParameters = [])
+    {
+        if (!is_array($route)) {
+            $route = [$route => $routeParameters];
+        }
+        foreach ($route as $r => $parameters) {
+            try {
+                $routeUri = route($r, $parameters, true);
+                if ($this->request->fullUrlIs($routeUri)) {
+                    return true;
+                }
+            } catch (\Exception $e) {
+                // Just ignore the exception: route does not exist
+            }
+        }
+        return false;
+    }
+
+    public function checkRouteParams($route, array $parameters = [], $active = null, $inactive = null)
+    {
+        $this->setReturnValue($active,$inactive);
+        return $this->checkRouteParamsBoolean($route, $parameters) ? $this->activeValue : $this->inActiveValue;
+    }
+
     /*
     * It is the main entry point to check using fullurl including query
     */
