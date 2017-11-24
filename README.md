@@ -223,7 +223,7 @@ If you ever change the route URI, your test will not need to be changed.
 
 Example for a route defined like this:
 ```php
-Route::get('/articles/category/{slug}'}', 'CategoryController@show')->name('category.show');
+Route::get('/articles/category/{slug}', 'CategoryController@show')->name('category.show');
 ```
 Check the URL with the route this way:
 ```php
