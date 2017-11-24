@@ -178,6 +178,27 @@ Yes it is also avaialable in blade.
     <p>Bar and Bazz</p>
 @endIfActiveQuery
 ```
+
+## New in v1.2.1
+
+You can check a route with parameters:
+```blade
+{{ Active::checkRouteParams('category.show', ['cat_id' => $currentcategory->id]) }}
+```
+
+Or with the helper:
+
+```blade
+{{{ active_route_params('category.show', ['cat_id' => $currentcategory->id]) }}}
+```
+
+You can also use the Blade directive:
+```blade
+@ifActiveRouteParams('category.show', ['cat_id' => $currentcategory->id])
+    <p>Foo</p>
+@endIfActiveRouteParams
+```
+
 ## Notes
 Everytime u update package, you have to run "php artisan view:clear" for blade directives.
 
