@@ -38,6 +38,14 @@ class ActiveStateServiceProvider extends ServiceProvider
             return '<?php endif; ?>';
         });
 
+        Blade::directive('ifActiveRouteParams', function ($expression) {
+            return "<?php if(Active::checkRouteParamsBoolean($expression)): ?>";
+        });
+
+        Blade::directive('endIfActiveRouteParams', function ($expression) {
+            return '<?php endif; ?>';
+        });
+
         $this->publishes([
             __DIR__.'/config/active.php' => config_path('active.php'),
         ], 'config');
