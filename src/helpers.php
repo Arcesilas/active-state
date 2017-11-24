@@ -55,3 +55,10 @@ if (! function_exists('active_query')) {
         return app('active-state')->checkQuery($url, $active, $inactive);
     }
 }
+
+if (! function_exists('active_route_params')) {
+    function active_route_params($url, $params = [], $active = null, $inactive = null)
+    {
+        return app('active-state')->checkRouteParams($url, $params, $active, $inactive);
+    }
+}
