@@ -64,7 +64,7 @@ If the request match this url . It will return the default value from config fil
 The default value for true state is `"active"` and false is `"no"`. You can configure on active.php .
 
 ```blade
-{{ Active::check('data') }} 
+{{ Active::check('data') }}
 ```
 To check the exact url.
 ```blade
@@ -118,21 +118,21 @@ OR
 
 Sometimes passing multiple routename as parameters is cubersome. You can simple do like this
 ```blade
-{{ Active::checkRoute('users.*') }} 
+{{ Active::checkRoute('users.*') }}
 ```
 
-Ofcousre you may change the return value in runtime as second and third params.
+Of course you may change the return value in runtime as second and third params.
 ```blade
-{{ Active::checkRoute('users.index','routeIsActive','routeNotActive') }} 
+{{ Active::checkRoute('users.index','routeIsActive','routeNotActive') }}
 ```
 OR
 ```blade
-{{ Active::checkRoute(['users.index','users.show'],'routeIsActive','routeNotActive') }} 
+{{ Active::checkRoute(['users.index','users.show'],'routeIsActive','routeNotActive') }}
 ```
 
 For helper function.
 ```blade
-{{ active_route('users.comments.*') }} 
+{{ active_route('users.comments.*') }}
 ```
 
 Yes it is also avaialable in blade.
@@ -155,18 +155,18 @@ OR
 {{ Active::checkQuery(['users?gender=male','users?status=married']) }} // check request is www.url.com/users?gender=male or www.url.com/users?status=married
 ```
 
-Ofcousre you may change the return value in runtime as second and third params.
+Of course you may change the return value in runtime as second and third params.
 ```blade
-{{ Active::checkQuery(['users?gender=male','itIsMale','Ah it is wonder woman') }} 
+{{ Active::checkQuery(['users?gender=male','itIsMale','Ah it is wonder woman') }}
 ```
 OR
 ```blade
-{{ Active::checkQuery(['users?gender=male','users?status=married'],'male or married','nothing') }} 
+{{ Active::checkQuery(['users?gender=male','users?status=married'],'male or married','nothing') }}
 ```
 
 For helper function.
 ```blade
-{{ active_query('users?gender=male') }} 
+{{ active_query('users?gender=male') }}
 ```
 
 Yes it is also avaialable in blade.
