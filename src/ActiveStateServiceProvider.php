@@ -13,34 +13,34 @@ class ActiveStateServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {   
-        Blade::directive('ifActiveUrl', function($expression) {
+    {
+        Blade::directive('ifActiveUrl', function ($expression) {
             return "<?php if(Active::checkBoolean($expression) ): ?>";
         });
 
-        Blade::directive('ifActiveRoute', function($expression) {
+        Blade::directive('ifActiveRoute', function ($expression) {
             return "<?php if(Active::checkRouteBoolean($expression) ): ?>";
         });
 
-        Blade::directive('ifActiveQuery', function($expression) {
+        Blade::directive('ifActiveQuery', function ($expression) {
             return "<?php if(Active::checkQueryBoolean($expression) ): ?>";
         });
 
-        Blade::directive('endIfActiveRoute', function($expression) {
+        Blade::directive('endIfActiveRoute', function ($expression) {
             return '<?php endif; ?>';
         });
 
-        Blade::directive('endIfActiveQuery', function($expression) {
+        Blade::directive('endIfActiveQuery', function ($expression) {
             return '<?php endif; ?>';
         });
 
-        Blade::directive('endIfActiveUrl', function($expression) {
+        Blade::directive('endIfActiveUrl', function ($expression) {
             return '<?php endif; ?>';
         });
 
         $this->publishes([
             __DIR__.'/config/active.php' => config_path('active.php'),
-        ], 'config');        
+        ], 'config');
     }
 
     /**
@@ -55,7 +55,8 @@ class ActiveStateServiceProvider extends ServiceProvider
         });
 
         $this->mergeConfigFrom(
-            __DIR__.'/config/active.php', 'active'
+            __DIR__.'/config/active.php',
+            'active'
         );
     }
 }
