@@ -227,7 +227,7 @@ Route::get('/articles/category/{slug}', 'CategoryController@show')->name('catego
 ```
 Check the URL with the route this way:
 ```php
-Active::checkRoute('category.show', ['slug' => $currentCategory->slug)
+Active::checkRouteIs('category.show', ['slug' => $currentCategory->slug)
 ```
 
 This is especially useful when you display a list of links that all lead to the same route with only a slug or id which differ.
@@ -303,7 +303,7 @@ The following _if_ Blade directives are defined by default for their equivalent 
 
 * `@url_is()`: `checkUrl()`
 * `@url_has()`: `checkUrlHas()`
-* `@route_is()`: `checkRoute()`
+* `@route_is()`: `checkRouteIs()`
 * `@route_in()`: `checkRouteIn()`
 * `@route_has()`: `checkRouteHas()`
 * `@query_is()`: `checkQuery()`
