@@ -1,7 +1,7 @@
 {
     "name": "arcesilas/active-state",
     "description": "Laravel link active state helper based on URL, route or query string",
-    "keywords": ["laravel", "active", "link", "menu", "route", "request"],
+    "keywords": ["laravel", "active", "link", "menu", "route", "url", "query", "request"],
     "homepage": "https://github.com/Arcesilas/active-state",
     "authors": [
         {

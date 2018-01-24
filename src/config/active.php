@@ -4,7 +4,7 @@ return [
     // The default  value if the request match given action
     'active_state'      =>  'active',
 
-    // The default  value if the request match given action
+    // The default  value if the request does not match given action
     'inactive_state'    =>  '',
 
     // Blade directives
