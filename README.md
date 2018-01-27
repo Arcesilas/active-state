@@ -1,5 +1,10 @@
 # Active State
 
+[![Packagist](https://img.shields.io/packagist/v/Arcesilas/active-state.svg?label=Packagist&style=flat-square)](https://packagist.org/packages/arcesilas/active-state)
+[![license](https://img.shields.io/github/license/Arcesilas/active-state.svg?style=flat-square)](https://github.com/Arcesilas/active-state)
+[![Travis](https://img.shields.io/travis/Arcesilas/active-state.svg?style=flat-square)](https://travis-ci.org/Arcesilas/active-state)
+[![Scrutinizer](https://img.shields.io/scrutinizer/g/Arcesilas/active-state.svg?style=flat-square)](https://scrutinizer-ci.com/g/Arcesilas/active-state/)
+
 This package helps you check if a given link matches the current URL, route or query string. This is especially useful in sidebars.
 
 > **History**  
