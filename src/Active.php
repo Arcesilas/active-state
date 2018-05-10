@@ -221,6 +221,7 @@ class Active
 
     /**
      * Returns activeValue or inactiveValue for checkQuery test
+     * @param  array[] $parameters
      * @return string               Active state string
      * @see Active::checkQueryIs()
      */
@@ -231,6 +232,7 @@ class Active
 
     /**
      * Returns activeValue or inactiveValue for checkQueryHas test
+     * @param  string  $parameters
      * @return string  Active state string
      * @see Active::checkQueryHas()
      */
@@ -241,6 +243,7 @@ class Active
 
     /**
      * Returns activeValue or inactiveValue for checkQueryHasOnly test
+     * @param  string  $parameters
      * @return string  Active state string
      * @see Active::checkQueryHasOnly()
      */
