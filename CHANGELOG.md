@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [2.1.0] - 2018-05-10
+
+### Added
+- Active::state() method, to change the Active value for one test only
+
 ## [2.0.3] - 2018-01-24
 
 ### Fixed

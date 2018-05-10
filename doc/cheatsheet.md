@@ -13,6 +13,12 @@
 | checkQueryHasOnly     | ifQueryHasOnly       | `...$parameters`                      | Check query string has only the given parameters       |
 | checkQueryContains    | ifQueryContains      | `$parameters`                         | Check query parameters are contained in the query      |
 
+Change the `active_state` value for one only test:
+
+```blade
+{{ Active::state('current')->ifRouteIn('foo.bar') }}
+```
+
 ## Blade directives
 
 Blade directives take the same arguments as their `Active::check*` equivalent.

@@ -328,6 +328,21 @@ class Active
     }
 
     /**
+     * Change active and inactive state at runtime and allow method chaining
+     * @param  string $active_state
+     * @param  string $inactive_state
+     * @return Active
+     */
+    public function state(string $active_state, string $inactive_state = null)
+    {
+        $this->setActiveValue($active_state, false);
+        if ($inactive_state) {
+            $this->setInactiveValue($inactive_state, false);
+        }
+        return $this;
+    }
+
+    /**
      * Reset both active and inactive state strings
      */
     public function resetValues()
