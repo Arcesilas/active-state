@@ -2,7 +2,6 @@
 
 namespace Arcesilas\ActiveState;
 
-use Active;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
