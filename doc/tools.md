@@ -28,5 +28,3 @@ They take the same arguments than the Active::if* methods and return their equiv
 ### Reset values
 
 You can reset Active and Inactive values to configuration defaults with `Active::resetValues()`
-
-## Misc
