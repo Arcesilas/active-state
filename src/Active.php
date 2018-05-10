@@ -3,9 +3,7 @@
 namespace Arcesilas\ActiveState;
 
 use Request;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request as HttpRequest;
-use Illuminate\Routing\Exceptions\UrlGenerationException;
 
 class Active
 {
@@ -51,7 +49,7 @@ class Active
 
     /**
      * Check whether url matches the given patterns
-     * @param  string $patterns Patterns to match
+     * @param  string[] $patterns Patterns to match
      * @return boolean
      */
     public function checkUrlIs(...$patterns)
@@ -61,7 +59,7 @@ class Active
 
     /**
      * Check whether url contains given strings
-     * @param  string  $patterns
+     * @param  string[]  $patterns
      * @return boolean
      */
     public function checkUrlHas(...$patterns)
@@ -77,7 +75,7 @@ class Active
     /**
      * Check if the current route name is the one given and the parameters match the current url
      * @param  string  $route       The route name to check
-     * @param  array  $routeparameters The route parameters, used to build the url
+     * @param  array  $routeParameters The route parameters, used to build the url
      * @return boolean
      */
     public function checkRouteIs($route, array $routeParameters = [])
@@ -101,7 +99,7 @@ class Active
     /**
      * Check whether the current route is one of the given routes
      * @method checkRouteIn
-     * @param  string  $routes
+     * @param  string[]  $routes
      * @return boolean
      */
     public function checkRouteIn(...$routes)
@@ -141,7 +139,7 @@ class Active
     /**
      * Check if query parameters names are exactly the ones given in argument
      * The order of the parameters does not matter
-     * @param  string  $parameters string
+     * @param  string[]  $parameters string
      * @return boolean
      */
     public function checkQueryHasOnly(...$parameters)
@@ -178,7 +176,7 @@ class Active
 
     /**
      * Returns activeValue or inactiveValue for checkUrlIs test
-     * @param  string  $patterns
+     * @param  string[]  $patterns
      * @return string  Active state string
      * @see Active::checkUrl
      */
@@ -189,7 +187,7 @@ class Active
 
     /**
      * Returns activeValue or inactiveValue for checkUrlHas test
-     * @param  string  $patterns
+     * @param  string[]  $patterns
      * @return string  Active state string
      * @see Active::checkUrlHas()
      */
@@ -212,8 +210,8 @@ class Active
 
     /**
      * Return activeValue or inactiveValue for checkRouteIn test
-     * @param  string  $routes
-     * @return boolean
+     * @param  string[]  $routes
+     * @return string
      * @see Active::checkRouteIn()
      */
     public function ifRouteIn(...$routes)
@@ -223,7 +221,6 @@ class Active
 
     /**
      * Returns activeValue or inactiveValue for checkQuery test
-     * @param  string  $patterns
      * @return string               Active state string
      * @see Active::checkQueryIs()
      */
@@ -234,7 +231,6 @@ class Active
 
     /**
      * Returns activeValue or inactiveValue for checkQueryHas test
-     * @param  string  $patterns
      * @return string  Active state string
      * @see Active::checkQueryHas()
      */
@@ -245,7 +241,6 @@ class Active
 
     /**
      * Returns activeValue or inactiveValue for checkQueryHasOnly test
-     * @param  string  $patterns
      * @return string  Active state string
      * @see Active::checkQueryHasOnly()
      */
