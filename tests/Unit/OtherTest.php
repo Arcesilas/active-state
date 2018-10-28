@@ -79,4 +79,14 @@ class OtherTest extends TestCase
         $this->assertSame('active', $active->getActiveValue());
         $this->assertSame('', $active->getInactiveValue());
     }
+
+    public function testStateMethod()
+    {
+        $active = new Mocks\ActiveChecksMock;
+        $this->assertSame($active, $active->state('on', 'off'));
+        $this->assertSame('on', $active->getActiveValue());
+        $this->assertSame('off', $active->getInactiveValue());
+        $this->assertAttributeSame(false, 'activeValuePersistent', $active);
+        $this->assertAttributeSame(false, 'inactiveValuePersistent', $active);
+    }
 }

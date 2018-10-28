@@ -19,7 +19,7 @@ If you don't want to use the Facade or want to use your own Service Provider, ad
             "arcesilas/active-state"
         ]
     }
-},    
+},
 ```
 
 See [Package discovery](https://laravel.com/docs/5.5/packages#package-discovery) section on Laravel documentation.
@@ -30,7 +30,12 @@ Read how to [configure](configuration.md) the package.
 
 For older versions of Laravel, please use appropriate versions of Active State:
 
-* Laravel 5.4: v1.2
+* Laravel 5.4: v1.2.x
+
+    ```shell
+    composer require arcesilas/active-state:^1.2
+    ```
+
 * Laravel 5.3 and below: 0.0.2
 
 Add the service provider in `config/app.php`

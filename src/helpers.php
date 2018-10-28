@@ -15,7 +15,7 @@ if (! function_exists('active_url_is')) {
 if (! function_exists('active_url_has')) {
      /**
       * @see Arcesilas\ActiveState\Active::ifUrlHas()
-      * @param  string  $urls
+      * @param  string[]  $urls
       * @return string
       */
     function active_url_has(...$urls)
@@ -40,7 +40,6 @@ if (! function_exists('active_route_is')) {
 if (! function_exists('active_route_in')) {
     /**
      * @see Arcesilas\ActiveState\Active::ifRouteIn()
-     * @param  string  $urls
      * @return string
      */
     function active_route_in(...$routes)
@@ -76,7 +75,7 @@ if (! function_exists('active_query_has')) {
 if (! function_exists('active_query_has_only')) {
     /**
      * @see Arcesilas\ActiveState\Active::ifQueryHasOnly()
-     * @param  string  $parameters
+     * @param  string[]  $parameters
      * @return string
      */
     function active_query_has_only(...$parameters)
