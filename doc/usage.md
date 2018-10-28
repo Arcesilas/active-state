@@ -44,7 +44,7 @@ To check the URL contains a string, regardless its position in the URL string:
 With URL `http://example.com/news/2017/11/some-article-slug`
 ```php
 Active::checkUrlHas('2017') // true
-``
+```
 
 Once again, you can pass more than one string to search:
 
