@@ -37,19 +37,19 @@ class IfTest extends TestCase
     /**
      * @dataProvider defaultStatesProvider
      */
-    public function testIfUrlIs($boolean, $expected)
+    public function testIfPathIs($boolean, $expected)
     {
         $this->setBool($boolean);
-        $this->assertSame($expected, $this->active->ifUrlIs('foo/bar'));
+        $this->assertSame($expected, $this->active->ifPathIs('foo/bar'));
     }
 
     /**
      * @dataProvider defaultStatesProvider
      */
-    public function testIfUrlHas($boolean, $expected)
+    public function testIfPathHas($boolean, $expected)
     {
         $this->setBool($boolean);
-        $this->assertSame($expected, $this->active->ifUrlHas('foo/bar'));
+        $this->assertSame($expected, $this->active->ifPathHas('foo/bar'));
     }
 
     /**

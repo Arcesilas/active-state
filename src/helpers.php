@@ -1,26 +1,60 @@
 <?php
 
+/** @codeCoverageIgnoreStart */
+
 if (! function_exists('active_url_is')) {
     /**
-     * @see Arcesilas\ActiveState\Active::ifUrlIs()
-     * @param $urls  Url to check
-     * @return string
+     * Alias os active_path_is for backward compatibility
+     * @see active_path_is
      */
     function active_url_is(...$urls)
     {
-        return app('active-state')->ifUrlIs(...$urls);
+        trigger_error(
+            'Helper active_url_is has been deprecated and will be removed in the next major release',
+            E_USER_DEPRECATED
+        );
+        return active_path_is(...$urls);
     }
 }
 
 if (! function_exists('active_url_has')) {
+    /**
+    * Alias os active_path_has for backward compatibility
+    * @see active_path_has
+    */
+    function active_url_has(...$paths)
+    {
+        trigger_error(
+            'Helper active_url_has has been deprecated and will be removed in the next major release',
+            E_USER_DEPRECATED
+        );
+        return active_path_has(...$paths);
+    }
+}
+
+/**@codeCoverageIgnoreEnd */
+
+if (! function_exists('active_path_is')) {
+    /**
+     * @see Arcesilas\ActiveState\Active::ifPathIs()
+     * @param $paths  Paths to check
+     * @return string
+     */
+    function active_path_is(...$paths)
+    {
+        return app('active-state')->ifPathIs(...$paths);
+    }
+}
+
+if (! function_exists('active_path_has')) {
      /**
-      * @see Arcesilas\ActiveState\Active::ifUrlHas()
-      * @param  string[]  $urls
+      * @see Arcesilas\ActiveState\Active::ifPathHas()
+      * @param  string[]  $paths  Paths to check
       * @return string
       */
-    function active_url_has(...$urls)
+    function active_path_has(...$paths)
     {
-        return app('active-state')->ifUrlHas(...$urls);
+        return app('active-state')->ifPathHas(...$paths);
     }
 }
 

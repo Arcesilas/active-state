@@ -35,8 +35,8 @@ class HelpersTest extends TestCase
     {
         // [$helper, $activeMethod, $arguments, $argsInArray]
         return [
-            ['active_url_is', 'ifUrlIs', 'foo/bar', false],
-            ['active_url_has', 'ifUrlHas', 'foo/bar', false],
+            ['active_path_is', 'ifPathIs', 'foo/bar', false],
+            ['active_path_has', 'ifPathHas', 'foo/bar', false],
             ['active_route_is', 'ifRouteIs', ['foo.bar', []], true],
             ['active_route_in', 'ifRouteIn', 'foo.bar', false],
             ['active_query_is', 'ifQueryIs', ['arg1' => 'val1'], false],

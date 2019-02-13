@@ -51,10 +51,10 @@ class ServiceProviderTest extends TestCase
     public function directivesProvider()
     {
         return [
-            ['url_is'],
-            ['not_url_is'],
-            ['url_has'],
-            ['not_url_has'],
+            ['path_is'],
+            ['not_path_is'],
+            ['path_has'],
+            ['not_path_has'],
             ['route_is'],
             ['not_route_is'],
             ['route_in'],

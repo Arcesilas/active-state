@@ -11,16 +11,16 @@ return [
     // Warning: if you change these values, you'll need to update your views!
     'blade' => [
         // checkUrlIs()
-        'url_is'           => 'url_is',
+        'path_is'           => 'path_is',
 
         // ! checkUrlIs()
-        'not_url_is'       => 'not_url_is',
+        'not_path_is'       => 'not_path_is',
 
         // checkUrlHas()
-        'url_has'       => 'url_has',
+        'path_has'       => 'path_has',
 
         // ! checkUrlHas()
-        'not_url_has'   => 'not_url_has',
+        'not_path_has'   => 'not_path_has',
 
         // checkRouteIs()
         'route_is'         => 'route_is',

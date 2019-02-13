@@ -6,7 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Http\Request as HttpRequest;
 use Arcesilas\ActiveState\ActiveFacade as Active;
 
-class UrlTest extends BladeDirectivesTestCase
+class PathTest extends BladeDirectivesTestCase
 {
     public function setUp()
     {
@@ -21,50 +21,50 @@ class UrlTest extends BladeDirectivesTestCase
     }
 
     /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\UrlIs::getData()
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\PathIs::getData()
      */
-    public function testUrlIs($expected, $testUrl)
+    public function testPathIs($expected, $testPath)
     {
         $this->app['request'] = HttpRequest::create('http://example.com/foo/bar');
         $this->assertEquals(
             $this->expected($expected),
-            view('url_is', ['testUrl' => $testUrl])->render()
+            view('path_is', ['testPath' => $testPath])->render()
         );
     }
 
     /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\UrlIs::getData()
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\PathIs::getData()
      */
-    public function testNotUrlIs($expected, $testUrl)
+    public function testNotPathIs($expected, $testPath)
     {
         $this->app['request'] = HttpRequest::create('http://example.com/foo/bar');
         $this->assertEquals(
             $this->expected(! $expected),
-            view('not_url_is', ['testUrl' => $testUrl])->render()
+            view('not_path_is', ['testPath' => $testPath])->render()
         );
     }
 
     /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\UrlHas::getData()
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\PathHas::getData()
      */
-    public function testUrlHas($expected, $testUrl)
+    public function testPathHas($expected, $testPath)
     {
         $this->app['request'] = HttpRequest::create('http://example.com/foo/bar');
         $this->assertEquals(
             $this->expected($expected),
-            view('url_has', ['testUrl' => $testUrl])->render()
+            view('path_has', ['testPath' => $testPath])->render()
         );
     }
 
     /**
-    * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\UrlHas::getData()
+    * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\PathHas::getData()
      */
-    public function testNotUrlHas($expected, $testUrl)
+    public function testNotPathHas($expected, $testPath)
     {
         $this->app['request'] = HttpRequest::create('http://example.com/foo/bar');
         $this->assertEquals(
             $this->expected(! $expected),
-            view('not_url_has', ['testUrl' => $testUrl])->render()
+            view('not_path_has', ['testPath' => $testPath])->render()
         );
     }
 }

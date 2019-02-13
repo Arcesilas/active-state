@@ -12,38 +12,98 @@ class ActiveStateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /** @codeCoverageIgnoreStart */
+
         // Directive: @url_is(...$url)
+        // Alias of @path_is()
         // Check current url is one of the given ones
         Blade::if(
             config('active.blade.url_is', 'url_is'),
             function (...$url) {
+                trigger_error(
+                    'Blade directive url_is has been deprecated and will be removed in the next major release. Use path_is instead.',
+                    E_USER_DEPRECATED
+                );
                 return $this->app['active-state']->checkUrlIs(...$url);
             }
         );
 
         // Directive: @not_url_is(...$url)
+        // Alias of @not_path_is
         // Check current url is NOT one of the given ones
         Blade::if(
             config('active.blade.not_url_is', 'not_url_is'),
             function (...$url) {
+                trigger_error(
+                    'Blade directive not_url_is has been deprecated and will be removed in the next major release. Use not_path_is instead.',
+                    E_USER_DEPRECATED
+                );
                 return ! $this->app['active-state']->checkUrlIs(...$url);
             }
         );
 
         // Directive: @url_has($url)
+        // Alias of @path_has
         // Check current url contains one of the given patterns
         Blade::if(
             config('active.blade.url_has', 'url_has'),
             function (...$url) {
+                trigger_error(
+                    'Blade directive url_has has been deprecated and will be removed in the next major release. Use path_has instead.',
+                    E_USER_DEPRECATED
+                );
                 return $this->app['active-state']->checkUrlHas(...$url);
             }
         );
 
+        /** @codeCoverageIgnoreEnd */
+
         // Directive: @url_has_not($url)
+        // Alias of @not_path_has
         Blade::if(
             config('active.blade.not_url_has', 'not_url_has'),
             function (...$url) {
+                trigger_error(
+                    'Blade directive url_has has been deprecated and will be removed in the next major release. Use path_has instead.',
+                    E_USER_DEPRECATED
+                );
                 return ! $this->app['active-state']->checkUrlHas(...$url);
+            }
+        );
+
+        // Directive: @path_is(...$paths)
+        // Check current path is one of the given ones
+        Blade::if(
+            config('active.blade.path_is', 'path_is'),
+            function (...$paths) {
+                return $this->app['active-state']->checkPathIs(...$paths);
+            }
+        );
+
+        // Directive: @not_path_is(...$paths)
+        // Check current url is NOT one of the given ones
+        Blade::if(
+            config('active.blade.not_path_is', 'not_path_is'),
+            function (...$paths) {
+                return ! $this->app['active-state']->checkPathIs(...$paths);
+            }
+        );
+
+        // Directive: @path_has($paths)
+        // Check current url contains one of the given patterns
+        Blade::if(
+            config('active.blade.path_has', 'path_has'),
+            function (...$paths) {
+                return $this->app['active-state']->checkPathHas(...$paths);
+            }
+        );
+
+        // Directive: @path_has_not($paths)
+        // Check current url does not contain the given patterns
+        Blade::if(
+            config('active.blade.not_path_has', 'not_path_has'),
+            function (...$paths) {
+                return ! $this->app['active-state']->checkPathHas(...$paths);
             }
         );
 

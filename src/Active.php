@@ -48,21 +48,51 @@ class Active
     }
 
     /**
-     * Check whether url matches the given patterns
+     * Alias of `checkPathIs()`
+     * @deprecated v4.0
+     * @see self::checkPathIs()
+     * @codeCoverageIgnore
+     */
+    public function checkUrlIs(...$urls)
+    {
+        trigger_error(
+            'Method Active::checkUrlIs() has been deprecated and will be removed in the next major release',
+            E_USER_DEPRECATED
+        );
+        return $this->checkPathIs(...$urls);
+    }
+
+    /**
+    * Alias of `checkPathHas()`
+    * @deprecated v4.0
+    * @see self::checkPathHas()
+    * @codeCoverageIgnore
+    */
+    public function checkUrlHas(...$urls)
+    {
+        trigger_error(
+            'Method Active::checkUrlHas() has been deprecated and will be removed in the next major release',
+            E_USER_DEPRECATED
+        );
+        return $this->checkPathHas(...$urls);
+    }
+
+    /**
+     * Check whether the path of the url matches the given patterns
      * @param  string[] $patterns Patterns to match
      * @return boolean
      */
-    public function checkUrlIs(...$patterns)
+    public function checkPathIs(...$patterns)
     {
         return $this->request->is(...$patterns);
     }
 
     /**
-     * Check whether url contains given strings
+     * Check whether the path of the url contains given strings
      * @param  string[]  $patterns
      * @return boolean
      */
-    public function checkUrlHas(...$patterns)
+    public function checkPathHas(...$patterns)
     {
         return $this->request->is(array_map(
             function ($item) {
@@ -175,25 +205,55 @@ class Active
     }
 
     /**
-     * Returns activeValue or inactiveValue for checkUrlIs test
-     * @param  string[]  $patterns
-     * @return string  Active state string
-     * @see Active::checkUrl
+     * Alias of ifPathHas()
+     * @deprecated v4.0
+     * @see self::ifPathHas()
+     * @codeCoverageIgnore
      */
     public function ifUrlIs(...$patterns)
     {
-        return $this->check('checkUrlIs', $patterns);
+        trigger_error(
+            'Method Active::ifUrlHas() has been deprecated and will be removed in the next major release',
+            E_USER_DEPRECATED
+        );
+        return $this->ifPathHas(...$patterns);
     }
 
     /**
-     * Returns activeValue or inactiveValue for checkUrlHas test
-     * @param  string[]  $patterns
-     * @return string  Active state string
-     * @see Active::checkUrlHas()
+     * Alias of ifPathHas()
+     * @deprecated v4.0
+     * @see self::ifPathIs()
+     * @codeCoverageIgnore
      */
     public function ifUrlHas(...$patterns)
     {
-        return $this->check('checkUrlHas', $patterns);
+        trigger_error(
+            'Method Active::ifUrlIs() has been deprecated and will be removed in the next major release',
+            E_USER_DEPRECATED
+        );
+        return $this->ifPathIs(...$patterns);
+    }
+
+    /**
+     * Returns activeValue or inactiveValue for checkPathIs test
+     * @param  string[]  $patterns
+     * @return string  Active state string
+     * @see Active::checkPathIs
+     */
+    public function ifPathIs(...$patterns)
+    {
+        return $this->check('checkPathIs', $patterns);
+    }
+
+    /**
+     * Returns activeValue or inactiveValue for checkPathHas test
+     * @param  string[]  $patterns
+     * @return string  Active state string
+     * @see Active::checkPathHas()
+     */
+    public function ifPathHas(...$patterns)
+    {
+        return $this->check('checkPathHas', $patterns);
     }
 
     /**

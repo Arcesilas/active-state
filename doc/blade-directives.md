@@ -2,8 +2,8 @@
 
 The following _if_ Blade directives are defined by default for their equivalent checks:
 
-* `@url_is()`: `checkUrlIs()`
-* `@url_has()`: `checkUrlHas()`
+* `@path_is()`: `checkPathIs()`
+* `@path_has()`: `checkPathHas()`
 * `@route_is()`: `checkRouteIs()`
 * `@route_in()`: `checkRouteIn()`
 * `@route_has()`: `checkRouteHas()`

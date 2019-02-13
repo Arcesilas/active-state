@@ -10,8 +10,6 @@ This package helps you check if a given link matches the current URL, route or q
 > **History**  
 > This package was originally a fork from [pyaesone17/active-state](https://github.com/pyaesone17/active-state). To fix [issue #8](https://github.com/pyaesone17/active-state/issues/8), I rewrote entirely the package.
 
-![Example](http://s22.postimg.org/acwm89mf5/Selection_011.png)
-
 Basically you would do like this:
 ```blade
 <li class="sidebar {{ Request::is('post') ? 'active' : 'no' }} ">Post</li>
@@ -19,8 +17,8 @@ Basically you would do like this:
 ```
 With this package, you can make it shorter:
 ```blade
-<li class="sidebar {{ active_url_is('post') }} ">Post</li>
-<li class="sidebar {{ active_url_is('page') }} ">Page</li>
+<li class="sidebar {{ active_path_is('post') }} ">Post</li>
+<li class="sidebar {{ active_path_is('page') }} ">Page</li>
 ```
 Or, if you prefer to check the route:
 ```blade
@@ -38,15 +36,16 @@ Maybe you just need the [cheatsheet](doc/cheatsheet.md)?
 
 0. [Quickstart](#quickstart)
 1. [Installation](doc/installation.md)
-2. [Usage](doc/usage.md)
-    * [URL checks](doc/usage.md#url-checks)
+2. [Upgrade from v2.x to v3.x](doc/upgrade.md)
+3. [Usage](doc/usage.md)
+    * [Path checks](doc/usage.md#path-checks)
     * [Route checks](doc/usage.md#route-checks)
     * [Query string checks](doc/usage.md#query-checks)
-2. [Blade directives](doc/blade-directives.md)
-3. [Additional features](doc/tools.md)
+4. [Blade directives](doc/blade-directives.md)
+5. [Additional features](doc/tools.md)
     * [Helpers](doc/tools.md#helpers)
     * [Additional features](doc/tools.md#additional-features)
-4. [Cheatsheet](doc/cheatsheet.md)
+6. [Cheatsheet](doc/cheatsheet.md)
 
 ## Quickstart
 
@@ -57,9 +56,9 @@ composer require arcesilas/active-state:^2.0
 
 ### Use it in your views
 
-Check current URL is `foo/bar`:
+Check current path is `foo/bar`:
 ```blade
-<li class="menu-item {{ Active::ifUrlIs('foo/bar') }}">Foo: Bar</li>
+<li class="menu-item {{ Active::ifPathIs('foo/bar') }}">Foo: Bar</li>
 ```
 
 will render:
@@ -67,7 +66,7 @@ will render:
 ```html
 <li class="menu-item active">Foo: Bar</li>
 ```
-if the current URL is actually `foo/bar`.
+if the current path is actually `foo/bar`.
 
 Check route name is `posts`:
 

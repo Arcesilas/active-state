@@ -7,7 +7,7 @@ use Arcesilas\ActiveState\Active;
 use Arcesilas\ActiveState\ActiveFacade;
 use Illuminate\Http\Request as HttpRequest;
 
-class CheckUrlTest extends TestCase
+class CheckPathTest extends TestCase
 {
 
     protected function init()
@@ -17,22 +17,22 @@ class CheckUrlTest extends TestCase
     }
 
     /**
-    * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\UrlIs::getData()
+    * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\PathIs::getData()
      */
-    public function testCheckUrlIs($expected, $checkUrl)
+    public function testCheckPathIs($expected, $checkPath)
     {
         $active = $this->init();
 
-        $this->assertSame($expected, $active->checkUrlIs($checkUrl));
+        $this->assertSame($expected, $active->checkPathIs($checkPath));
     }
 
     /**
-    * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\UrlHas::getData()
+    * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\PathHas::getData()
      */
-    public function testCheckUrlHas($expected, $checkUrl)
+    public function testCheckPathHas($expected, $checkPath)
     {
         $active = $this->init();
 
-        $this->assertSame($expected, $active->checkUrlHas(...$checkUrl));
+        $this->assertSame($expected, $active->checkPathHas(...$checkPath));
     }
 }

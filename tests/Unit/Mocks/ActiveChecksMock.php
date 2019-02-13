@@ -10,12 +10,12 @@ class ActiveChecksMock extends ActiveMock
 {
     public $expectedBoolean = true;
 
-    public function checkUrlIs(...$patterns)
+    public function checkPathIs(...$patterns)
     {
         return $this->expectedBoolean;
     }
 
-    public function checkUrlHas(...$patterns)
+    public function checkPathHas(...$patterns)
     {
         return $this->expectedBoolean;
     }

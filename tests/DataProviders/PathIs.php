@@ -2,7 +2,7 @@
 
 namespace Arcesilas\ActiveState\Tests\DataProviders;
 
-class UrlIs
+class PathIs
 {
     public static function getData()
     {
