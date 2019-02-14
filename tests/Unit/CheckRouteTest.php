@@ -21,6 +21,12 @@ class CheckRouteTest extends TestCase
         // Make a Laravel application
         $app = new Application(__DIR__);
 
+        // For some reason, in the test, 'config' needs to be explicitely bound
+        // Since Laravel 5.7.14, UrlGenerator needs some config item
+        $app->bind('config', function () {
+            return new \Illuminate\Config\Repository();
+        });
+
         // Register a request
         $request = HttpRequest::create('http://example.com/'.$requestUrl);
         $app->instance('request', $request);
