@@ -74,4 +74,35 @@ class CheckRouteTest extends TestCase
 
         $this->assertSame($expected, $active->checkRouteIn(...$routes));
     }
+
+    /**
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\RouteIs::getSingleRouteData()
+     */
+    public function testSingleIfNotRoute($requestUrl, $expected, $routeUri, $routeParameters)
+    {
+        $active = $this->init($requestUrl, $routeUri);
+
+        $this->assertSame(! $expected, $active->checkNotRouteIs($this->routeName, $routeParameters));
+    }
+
+    /**
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\RouteIs::getMultipleRoutesData()
+     */
+    public function testMultiplelIfNotRoute($requestUrl, $expected, $routeUri, $check)
+    {
+        $active = $this->init($requestUrl, $routeUri);
+
+        $this->assertSame(! $expected, $active->checkNotRouteIs($check));
+    }
+
+    /**
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\RouteIn::getData()
+     */
+    public function testIfNotRouteIn($routeName, $expected, $routes)
+    {
+        // Here, we need to dispatch, for the route to be resolved by the request
+        $active = $this->init('foo/bar', 'foo/bar', $routeName, true);
+
+        $this->assertSame(! $expected, $active->checkNotRouteIn(...$routes));
+    }
 }

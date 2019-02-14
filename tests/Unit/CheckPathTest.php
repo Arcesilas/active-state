@@ -35,4 +35,26 @@ class CheckPathTest extends TestCase
 
         $this->assertSame($expected, $active->checkPathHas(...$checkPath));
     }
+
+    /**
+    * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\PathIs::getData()
+     */
+    public function testCheckNotPathIs($expected, $checkPath)
+    {
+        $active = $this->init();
+
+        $this->assertSame(! $expected, $active->checkNotPathIs($checkPath));
+    }
+
+    /**
+    * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\PathHas::getData()
+     */
+    public function testCheckNotPathHas($expected, $checkPath)
+    {
+        $active = $this->init();
+
+        $this->assertSame(! $expected, $active->checkNotPathHas(...$checkPath));
+    }
+
+
 }

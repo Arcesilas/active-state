@@ -57,4 +57,44 @@ class CheckQueryTest extends TestCase
 
         $this->assertSame($expected, $active->checkQueryContains($params));
     }
+
+    /**
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryIs::getData()
+     */
+    public function testCheckNotQueryIs($requestUrl, $expected, array $params)
+    {
+        $active = $this->init($requestUrl);
+
+        $this->assertSame(! $expected, $active->checkNotQueryIs(...$params));
+    }
+
+    /**
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryHas::getData()
+     */
+    public function testCheckNotQueryHas($requestUrl, $expected, array $params)
+    {
+        $active = $this->init($requestUrl);
+
+        $this->assertSame(! $expected, $active->checkNotQueryHas(...$params));
+    }
+
+    /**
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryHasOnly::getData()
+     */
+    public function testCheckNotQueryHasOnly($requestUrl, $expected, array $params)
+    {
+        $active = $this->init($requestUrl);
+
+        $this->assertSame(! $expected, $active->checkNotQueryHasOnly(...$params));
+    }
+
+    /**
+     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryContains::getData()
+     */
+    public function testCheckNotQueryContains($requestUrl, $expected, $params)
+    {
+        $active = $this->init($requestUrl);
+
+        $this->assertSame(! $expected, $active->checkNotQueryContains($params));
+    }
 }
