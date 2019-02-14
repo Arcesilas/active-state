@@ -54,7 +54,7 @@ class Active
 
     /**
      * Whether $inactiveValue should be reset after a check or not
-     * @var [type]
+     * @var bool
      */
     protected $inactiveValuePersistent = false;
 
@@ -101,8 +101,8 @@ class Active
 
     /**
      * Check if the current route name is the one given and the parameters match the current url
-     * @param  string  $route       The route name to check
-     * @param  array  $routeParameters The route parameters, used to build the url
+     * @param  string|array  $route           The route name to check
+     * @param  array         $routeParameters The route parameters, used to build the url
      * @return bool
      */
     public function checkRouteIs($route, array $routeParameters = [])
