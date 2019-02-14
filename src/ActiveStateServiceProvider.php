@@ -20,10 +20,10 @@ class ActiveStateServiceProvider extends ServiceProvider
         Blade::if(
             config('active.blade.url_is', 'url_is'),
             function (...$url) {
-                trigger_error(
-                    'Blade directive url_is has been deprecated and will be removed in the next major release. Use path_is instead.',
-                    E_USER_DEPRECATED
-                );
+                // trigger_error(
+                //     'Blade directive url_is has been deprecated and will be removed in the next major release. Use path_is instead.',
+                //     E_USER_DEPRECATED
+                // );
                 return $this->app['active-state']->checkUrlIs(...$url);
             }
         );
@@ -34,10 +34,10 @@ class ActiveStateServiceProvider extends ServiceProvider
         Blade::if(
             config('active.blade.not_url_is', 'not_url_is'),
             function (...$url) {
-                trigger_error(
-                    'Blade directive not_url_is has been deprecated and will be removed in the next major release. Use not_path_is instead.',
-                    E_USER_DEPRECATED
-                );
+                // trigger_error(
+                //     'Blade directive not_url_is has been deprecated and will be removed in the next major release. Use not_path_is instead.',
+                //     E_USER_DEPRECATED
+                // );
                 return ! $this->app['active-state']->checkUrlIs(...$url);
             }
         );
@@ -48,10 +48,10 @@ class ActiveStateServiceProvider extends ServiceProvider
         Blade::if(
             config('active.blade.url_has', 'url_has'),
             function (...$url) {
-                trigger_error(
-                    'Blade directive url_has has been deprecated and will be removed in the next major release. Use path_has instead.',
-                    E_USER_DEPRECATED
-                );
+                // trigger_error(
+                //     'Blade directive url_has has been deprecated and will be removed in the next major release. Use path_has instead.',
+                //     E_DEPRECATED
+                // );
                 return $this->app['active-state']->checkUrlHas(...$url);
             }
         );
@@ -63,10 +63,10 @@ class ActiveStateServiceProvider extends ServiceProvider
         Blade::if(
             config('active.blade.not_url_has', 'not_url_has'),
             function (...$url) {
-                trigger_error(
-                    'Blade directive url_has has been deprecated and will be removed in the next major release. Use path_has instead.',
-                    E_USER_DEPRECATED
-                );
+                // trigger_error(
+                //     'Blade directive not_url_has has been deprecated and will be removed in the next major release. Use not_path_has instead.',
+                //     E_USER_DEPRECATED
+                // );
                 return ! $this->app['active-state']->checkUrlHas(...$url);
             }
         );
