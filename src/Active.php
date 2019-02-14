@@ -4,7 +4,34 @@ namespace Arcesilas\ActiveState;
 
 use Request;
 use Illuminate\Http\Request as HttpRequest;
+use BadMethodCallException;
 
+/**
+ * @method checkNotPathIs(...$patterns) Check whether the path of the url does not match the given patterns
+ * @method checkNotPathHas(...$patterns) Check whether the path of the url does not contain given strings
+ * @method checkNotQueryContains($parameters) Check if query does not have the given parameters, with their given values
+ * @method checkNotQueryHas(...$parameters) Check if query has none of the given parameters, not taking their values into account
+ * @method checkNotQueryHasOnly(... $parameters) Check if query parameters names are exactly not the ones given in argument
+ * @method checkNotQueryIs(array ...$parameters) Check that the parameters of the query string are exactly not the ones given
+ * @method checkNotRouteIn(...$routes) Check whether the current route is none of the given routes
+ * @method checkNotRouteIs($route, array $routeParameters) Check if the current route name is not the one given and the parameters match the current url
+ * @method ifPathIs(...$patterns) Returns activeValue or inactiveValue for checkPathIs test
+ * @method ifPathHas(...$patterns) Returns activeValue or inactiveValue for checkPathHas test
+ * @method ifQueryContains($parameters) Returns activeValue or inactiveValue for checkQueryContains test
+ * @method ifQueryHas(...$parameters) Returns activeValue or inactiveValue for checkQueryHas test
+ * @method ifQueryHasOnly(...$parameters) Returns activeValue or inactiveValue for checkQueryHasOnly test
+ * @method ifQueryIs(array ...$parameters) Returns activeValue or inactiveValue for checkQuery test
+ * @method ifRouteIn(...$routes) Returns activeValue or inactiveValue for checkRouteIn test
+ * @method ifRouteIs($route, array $parameters = []) Returns activeValue or inactiveValue for checkRouteIs test
+ * @method ifNotPathIs(...$patterns) Returns activeValue or inactiveValue for checkNotPathIs test
+ * @method ifNotPathHas(...$patterns) Returns activeValue or inactiveValue for checkNotPathHas test
+ * @method ifNotQueryContains($parameters) Returns activeValue or inactiveValue for checkNotQueryContains test
+ * @method ifNotQueryHas(...$parameters) Returns activeValue or inactiveValue for checkNotQueryHas test
+ * @method ifNotQueryHasOnly(...$parameters) Returns activeValue or inactiveValue for checkNotQueryHasOnly test
+ * @method ifNotQueryIs(array ...$parameters) Returns activeValue or inactiveValue for checkNotQueryIs test
+ * @method ifNotRouteIn(...$routes) Returns activeValue or inactiveValue for checkNotRouteIn test
+ * @method ifNotRouteIs($route, array $parameters = []) Returns activeValue or inactiveValue for checkNotRouteIs test
+ */
 class Active
 {
     /**
@@ -15,7 +42,7 @@ class Active
 
     /**
      * Whether $activeValue should be reset after a check or not
-     * @var boolean
+     * @var bool
      */
     protected $activeValuePersistent = false;
 
@@ -48,39 +75,9 @@ class Active
     }
 
     /**
-     * Alias of `checkPathIs()`
-     * @deprecated v4.0
-     * @see self::checkPathIs()
-     * @codeCoverageIgnore
-     */
-    public function checkUrlIs(...$urls)
-    {
-        trigger_error(
-            'Method Active::checkUrlIs() has been deprecated and will be removed in the next major release',
-            E_USER_DEPRECATED
-        );
-        return $this->checkPathIs(...$urls);
-    }
-
-    /**
-    * Alias of `checkPathHas()`
-    * @deprecated v4.0
-    * @see self::checkPathHas()
-    * @codeCoverageIgnore
-    */
-    public function checkUrlHas(...$urls)
-    {
-        trigger_error(
-            'Method Active::checkUrlHas() has been deprecated and will be removed in the next major release',
-            E_USER_DEPRECATED
-        );
-        return $this->checkPathHas(...$urls);
-    }
-
-    /**
      * Check whether the path of the url matches the given patterns
      * @param  string[] $patterns Patterns to match
-     * @return boolean
+     * @return bool
      */
     public function checkPathIs(...$patterns)
     {
@@ -90,7 +87,7 @@ class Active
     /**
      * Check whether the path of the url contains given strings
      * @param  string[]  $patterns
-     * @return boolean
+     * @return bool
      */
     public function checkPathHas(...$patterns)
     {
@@ -106,7 +103,7 @@ class Active
      * Check if the current route name is the one given and the parameters match the current url
      * @param  string  $route       The route name to check
      * @param  array  $routeParameters The route parameters, used to build the url
-     * @return boolean
+     * @return bool
      */
     public function checkRouteIs($route, array $routeParameters = [])
     {
@@ -128,9 +125,8 @@ class Active
 
     /**
      * Check whether the current route is one of the given routes
-     * @method checkRouteIn
      * @param  string[]  $routes
-     * @return boolean
+     * @return bool
      */
     public function checkRouteIn(...$routes)
     {
@@ -141,7 +137,7 @@ class Active
      * Check that the parameters of the query string are exactly the ones given
      * The test returns true if at least one given array matches the query string parameters (keys and values)
      * @param  array  $parameters
-     * @return boolean
+     * @return bool
      */
     public function checkQueryIs(array ...$parameters)
     {
@@ -156,7 +152,7 @@ class Active
     /**
      * Check if query has all of the given parameters, not taking their values into account
      * @param  array  $parameters
-     * @return boolean
+     * @return bool
      */
     public function checkQueryHas(...$parameters)
     {
@@ -170,7 +166,7 @@ class Active
      * Check if query parameters names are exactly the ones given in argument
      * The order of the parameters does not matter
      * @param  string[]  $parameters string
-     * @return boolean
+     * @return bool
      */
     public function checkQueryHasOnly(...$parameters)
     {
@@ -184,7 +180,7 @@ class Active
     /**
      * Check if query has the given parameters, with their given values
      * @param  array  $parameters  The parameters to check for
-     * @return boolean
+     * @return bool
      */
     public function checkQueryContains($parameters)
     {
@@ -204,128 +200,28 @@ class Active
         return $this->getState(call_user_func_array([$this, $check], $arguments));
     }
 
-    /**
-     * Alias of ifPathHas()
-     * @deprecated v4.0
-     * @see self::ifPathHas()
-     * @codeCoverageIgnore
-     */
-    public function ifUrlIs(...$patterns)
+    public function __call($calledMethod, array $arguments)
     {
-        trigger_error(
-            'Method Active::ifUrlHas() has been deprecated and will be removed in the next major release',
-            E_USER_DEPRECATED
-        );
-        return $this->ifPathHas(...$patterns);
-    }
+        if (0 === strpos($calledMethod, 'if')) {
+            $check = 'check' . substr($calledMethod, 2);
+            return call_user_func_array([$this, 'check'], [$check, $arguments]);
+        }
 
-    /**
-     * Alias of ifPathHas()
-     * @deprecated v4.0
-     * @see self::ifPathIs()
-     * @codeCoverageIgnore
-     */
-    public function ifUrlHas(...$patterns)
-    {
-        trigger_error(
-            'Method Active::ifUrlIs() has been deprecated and will be removed in the next major release',
-            E_USER_DEPRECATED
-        );
-        return $this->ifPathIs(...$patterns);
-    }
+        if (0 === strpos($calledMethod, 'checkNot')) {
+            $method = 'check' . substr($calledMethod, 8);
+            return ! call_user_func_array([$this, $method], $arguments);
+        }
 
-    /**
-     * Returns activeValue or inactiveValue for checkPathIs test
-     * @param  string[]  $patterns
-     * @return string  Active state string
-     * @see Active::checkPathIs
-     */
-    public function ifPathIs(...$patterns)
-    {
-        return $this->check('checkPathIs', $patterns);
-    }
-
-    /**
-     * Returns activeValue or inactiveValue for checkPathHas test
-     * @param  string[]  $patterns
-     * @return string  Active state string
-     * @see Active::checkPathHas()
-     */
-    public function ifPathHas(...$patterns)
-    {
-        return $this->check('checkPathHas', $patterns);
-    }
-
-    /**
-     * Returns activeValue or inactiveValue for checkRouteIs test
-     * @param  string  $route
-     * @param  array  $parameters
-     * @return string  Active state string
-     * @see Active::checkRouteIs()
-     */
-    public function ifRouteIs($route, array $parameters = [])
-    {
-        return $this->check('checkRouteIs', [$route, $parameters]);
-    }
-
-    /**
-     * Return activeValue or inactiveValue for checkRouteIn test
-     * @param  string[]  $routes
-     * @return string
-     * @see Active::checkRouteIn()
-     */
-    public function ifRouteIn(...$routes)
-    {
-        return $this->check('checkRouteIn', $routes);
-    }
-
-    /**
-     * Returns activeValue or inactiveValue for checkQuery test
-     * @param  array[] $parameters
-     * @return string               Active state string
-     * @see Active::checkQueryIs()
-     */
-    public function ifQueryIs(array ...$parameters)
-    {
-        return $this->check('checkQueryIs', $parameters);
-    }
-
-    /**
-     * Returns activeValue or inactiveValue for checkQueryHas test
-     * @param  string  $parameters
-     * @return string  Active state string
-     * @see Active::checkQueryHas()
-     */
-    public function ifQueryHas(...$parameters)
-    {
-        return $this->check('checkQueryHas', $parameters);
-    }
-
-    /**
-     * Returns activeValue or inactiveValue for checkQueryHasOnly test
-     * @param  string  $parameters
-     * @return string  Active state string
-     * @see Active::checkQueryHasOnly()
-     */
-    public function ifQueryHasOnly(...$parameters)
-    {
-        return $this->check('checkQueryHasOnly', $parameters);
-    }
-
-    /**
-     * Returns activeValue or inactiveValue for checkQueryContains test
-     * @param  string  $parameters
-     * @return string  Active state string
-     * @see Active::checkQueryContains()
-     */
-    public function ifQueryContains($parameters)
-    {
-        return $this->check('checkQueryContains', $parameters);
+        // @codeCoverageIgnoreStart
+        throw new BadMethodCallException(sprintf(
+            'Method %s::%s does not exist.', static::class, $calledMethod
+        ));
+        // @codeCoverageIgnoreEnd
     }
 
     /**
      * Returns the active state string depending on the actual state
-     * @param  boolean  $active
+     * @param  bool  $active
      * @return string
      */
     public function getState($active)
@@ -362,7 +258,7 @@ class Active
     /**
      * Set the active state string
      * @param  string  $value  The string value
-     * @param  boolean|null  $persistent Whether to reset the value after the next check
+     * @param  bool|null  $persistent Whether to reset the value after the next check
      */
     public function setActiveValue($value = null, $persistent = null)
     {
@@ -375,7 +271,7 @@ class Active
     /**
      * Set the inactive state string
      * @param  string  $value      The string value
-     * @param  boolean|null  $persistent Whether to reset the value after the next check
+     * @param  bool|null  $persistent Whether to reset the value after the next check
      */
     public function setInactiveValue($value = null, $persistent = null)
     {
@@ -407,5 +303,53 @@ class Active
     {
         $this->activeValue = null;
         $this->inactiveValue = null;
+    }
+
+    //--------------------
+    // Deprecated methods
+    //--------------------
+
+    /**
+    * Alias of ifPathHas()
+    * @deprecated v4.0
+    * @see self::ifPathHas()
+    * @codeCoverageIgnore
+    */
+    public function ifUrlIs(...$patterns)
+    {
+        return $this->ifPathHas(...$patterns);
+    }
+
+    /**
+    * Alias of ifPathHas()
+    * @deprecated v4.0
+    * @see self::ifPathIs()
+    * @codeCoverageIgnore
+    */
+    public function ifUrlHas(...$patterns)
+    {
+        return $this->ifPathIs(...$patterns);
+    }
+
+    /**
+    * Alias of `checkPathIs()`
+    * @deprecated v4.0
+    * @see self::checkPathIs()
+    * @codeCoverageIgnore
+    */
+    public function checkUrlIs(...$urls)
+    {
+        return $this->checkPathIs(...$urls);
+    }
+
+    /**
+    * Alias of `checkPathHas()`
+    * @deprecated v4.0
+    * @see self::checkPathHas()
+    * @codeCoverageIgnore
+    */
+    public function checkUrlHas(...$urls)
+    {
+        return $this->checkPathHas(...$urls);
     }
 }
