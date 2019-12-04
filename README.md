@@ -30,22 +30,22 @@ Keywords: route, url, query, menu, link, request, laravel, active
 
 ## TL;DR
 
-Maybe you just need the [cheatsheet](doc/cheatsheet.md)?
+Maybe you just need the [cheatsheet](docs/cheatsheet.md)?
 
 ## Table of contents
 
 0. [Quickstart](#quickstart)
-1. [Installation](doc/installation.md)
-2. [Upgrade from v2.x to v3.x](doc/upgrade.md)
-3. [Usage](doc/usage.md)
-    * [Path checks](doc/usage.md#path-checks)
-    * [Route checks](doc/usage.md#route-checks)
-    * [Query string checks](doc/usage.md#query-checks)
-4. [Blade directives](doc/blade-directives.md)
-5. [Additional features](doc/tools.md)
-    * [Helpers](doc/tools.md#helpers)
-    * [Additional features](doc/tools.md#additional-features)
-6. [Cheatsheet](doc/cheatsheet.md)
+1. [Installation](docs/installation.md)
+2. [Upgrade from v2.x to v3.x](docs/upgrade.md)
+3. [Usage](docs/usage.md)
+    * [Path checks](docs/usage.md#path-checks)
+    * [Route checks](docs/usage.md#route-checks)
+    * [Query string checks](docs/usage.md#query-checks)
+4. [Blade directives](docs/blade-directives.md)
+5. [Additional features](docs/tools.md)
+    * [Helpers](docs/tools.md#helpers)
+    * [Additional features](docs/tools.md#additional-features)
+6. [Cheatsheet](docs/cheatsheet.md)
 
 ## Quickstart
 

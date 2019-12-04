@@ -202,7 +202,7 @@ class ActiveStateServiceProvider extends ServiceProvider
         });
 
         $this->mergeConfigFrom(
-            __DIR__.'/config/active.php',
+            __DIR__.'/../config/active.php',
             'active'
         );
     }
