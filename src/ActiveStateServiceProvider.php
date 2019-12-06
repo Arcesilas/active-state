@@ -198,7 +198,7 @@ class ActiveStateServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('active-state', function ($app) {
-            return new \Arcesilas\ActiveState\Active($app->make('request'));
+            return new Active($app->make('request'));
         });
 
         $this->mergeConfigFrom(
