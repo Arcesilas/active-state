@@ -4,18 +4,14 @@ checks:
     php: true
 build:
     nodes:
-        php70:
-            environment:
-                php:
-                    version: "7.0"
-        php71:
-            environment:
-                php:
-                    version: "7.1"
         php72:
             environment:
                 php:
                     version: "7.2"
+        php73:
+            environment:
+                php:
+                    version: "7.3"
         analysis:
             dependencies:
                 after:
