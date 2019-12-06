@@ -1,51 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Arcesilas\ActiveState\Tests\Feature;
 
-use Illuminate\Support\Facades\Blade;
-use PHPUnit\Framework\TestCase;
-use Arcesilas\ActiveState\Active;
-use Arcesilas\ActiveState\ActiveStateServiceProvider;
-use Illuminate\Foundation\Application;
-use Illuminate\View\ViewServiceProvider;
+use Arcesilas\ActiveState\Tests\TestCase;
 use Illuminate\Http\Request as HttpRequest;
-use Illuminate\Filesystem\FilesystemServiceProvider;
-use Illuminate\Config\Repository as ConfigRepository;
+use Blade;
 
+/** @coversDefaultClass Arcesilas\ActiveState\ActiveStateServiceProvider */
 class ServiceProviderTest extends TestCase
 {
-    protected $directives;
+    protected $customDirectives;
 
-    public function setUp()
+    /**
+     * @dataProvider directivesProvider
+     */
+    public function testActiveStateServiceProvider($directive)
     {
-        $app = new Application(__DIR__);
+        // For some reason the blade.compiler instance is not set in the Container
+        // when in setUp or getEnvironmentSetUp
+        $customDirectives = array_keys(Blade::getCustomDirectives());
 
-        Blade::setFacadeApplication($app);
+        $elseDirective = 'else'.$directive;
+        $endDirective = 'end'.$directive;
 
-        $app->singleton('files', function () {
-            return new Filesystem;
-        });
-
-        $app->register(FilesystemServiceProvider::class);
-
-        $app['blade.compiler'] = new \Illuminate\View\Compilers\BladeCompiler(
-            $this->prophesize(\Illuminate\Filesystem\Filesystem::class)->reveal(),
-            // $app['files'],
-            sys_get_temp_dir()
-        );
-
-        // $app['config'] = $this->createMock(ConfigRepository::class);
-        $app['config'] = new ConfigRepository;
-        $app['config']['view.compiled'] = sys_get_temp_dir();
-        $app['config']['view.paths'] = [__DIR__.'/stubs'];
-
-        $app->register(ViewServiceProvider::class);
-
-        $activeSP = new Mocks\ActiveStateServiceProviderMock($app);
-        $app->register($activeSP);
-        $activeSP->boot();
-
-        $this->directives = array_keys($app['blade.compiler']->getCustomDirectives());
+        $this->assertContains($directive, $customDirectives);
+        $this->assertContains($elseDirective, $customDirectives);
+        $this->assertContains($endDirective, $customDirectives);
     }
 
     public function directivesProvider()
@@ -68,19 +50,5 @@ class ServiceProviderTest extends TestCase
             ['query_contains'],
             ['not_query_contains']
         ];
-    }
-
-    /**
-     * @dataProvider directivesProvider
-     * @coversNothing
-     */
-    public function testActiveStateServiceProvider($directive)
-    {
-        $elseDirective = 'else'.$directive;
-        $endDirective = 'end'.$directive;
-
-        $this->assertContains($directive, $this->directives);
-        $this->assertContains($elseDirective, $this->directives);
-        $this->assertContains($endDirective, $this->directives);
     }
 }

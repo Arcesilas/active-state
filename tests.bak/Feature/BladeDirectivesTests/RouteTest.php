@@ -75,22 +75,18 @@ class RouteTest extends BladeDirectivesTestCase
     public function multipleRouteIsProvider()
     {
         return [
-            // #0
             ['foo/bar', true, 'foo/bar', [
                 'some.route' => [],
                 'route.test' => []
             ]],
-            // #1
             ['foo/bar/title', true, 'foo/bar/{slug}',[
                 'some.route' => ['slug' => 'something'],
                 'route.test' => ['slug' => 'title']
             ]],
-            // #2
             ['foo/bar/title', false, 'foo/bar/{slug}', [
                 'route.test' => ['slug' => 'something'],
                 'route.test' => ['slug' => 'something-else']
             ]],
-            // #3
             ['foo/bar/title', false, 'foo/bar/{slug}', [
                 'some.route' => ['someArg' => 'someValue']
             ]]
