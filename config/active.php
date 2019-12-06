@@ -11,19 +11,19 @@ return [
     // Warning: if you change these values, you'll need to update your views!
     'blade' => [
         // checkUrlIs()
-        // deprecated since v3.0
+        // deprecated since v4.0
         'url_is'             => 'url_is',
 
         // ! checkUrlIs()
-        // deprecated since v3.0
+        // deprecated since v4.0
         'not_url_is'         => 'not_url_is',
 
         // checkUrlHas()
-        // deprecated since v3.0
+        // deprecated since v4.0
         'url_has'            => 'url_has',
 
         // ! checkUrlHas()
-        // deprecated since v3.0
+        // deprecated since v4.0
         'not_url_has'        => 'not_url_has',
 
         // checkPathIs()
