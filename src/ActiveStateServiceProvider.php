@@ -188,7 +188,7 @@ class ActiveStateServiceProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__.'/config/active.php' => config_path('active.php'),
+            __DIR__ . '/config/active.php' => config_path('active.php'),
         ], 'config');
     }
 
@@ -202,7 +202,7 @@ class ActiveStateServiceProvider extends ServiceProvider
         });
 
         $this->mergeConfigFrom(
-            __DIR__.'/../config/active.php',
+            __DIR__ . '/../config/active.php',
             'active'
         );
     }

@@ -44,7 +44,8 @@ if (! function_exists('active_not_path_is')) {
      * @param $paths  Paths to check
      * @return string
      */
-    function active_not_path_is(...$paths) {
+    function active_not_path_is(...$paths)
+    {
         return app('active-state')->ifNotPathIs(...$paths);
     }
 }

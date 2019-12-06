@@ -9,12 +9,17 @@ use BadMethodCallException;
 /**
  * @method checkNotPathIs(...$patterns) Check whether the path of the url does not match the given patterns
  * @method checkNotPathHas(...$patterns) Check whether the path of the url does not contain given strings
- * @method checkNotQueryContains($parameters) Check if query does not have the given parameters, with their given values
- * @method checkNotQueryHas(...$parameters) Check if query has none of the given parameters, not taking their values into account
- * @method checkNotQueryHasOnly(... $parameters) Check if query parameters names are exactly not the ones given in argument
- * @method checkNotQueryIs(array ...$parameters) Check that the parameters of the query string are exactly not the ones given
+ * @method checkNotQueryContains($parameters) Check if query does not have the given parameters,
+ *         with their given values
+ * @method checkNotQueryHas(...$parameters) Check if query has none of the given parameters,
+ *         not taking their values into account
+ * @method checkNotQueryHasOnly(... $parameters) Check if query parameters names are exactly not the ones
+ *         given in argument
+ * @method checkNotQueryIs(array ...$parameters) Check that the parameters of the query string are exactly
+ *         not the ones given in argument
  * @method checkNotRouteIn(...$routes) Check whether the current route is none of the given routes
- * @method checkNotRouteIs($route, array $routeParameters) Check if the current route name is not the one given and the parameters match the current url
+ * @method checkNotRouteIs($route, array $routeParameters) Check if the current route name is not the one given
+ *         and the parameters match the current url
  * @method ifPathIs(...$patterns) Returns activeValue or inactiveValue for checkPathIs test
  * @method ifPathHas(...$patterns) Returns activeValue or inactiveValue for checkPathHas test
  * @method ifQueryContains($parameters) Returns activeValue or inactiveValue for checkQueryContains test
@@ -207,9 +212,7 @@ class Active
         }
 
         // @codeCoverageIgnoreStart
-        throw new BadMethodCallException(sprintf(
-            'Method %s::%s does not exist.', static::class, $calledMethod
-        ));
+        throw new BadMethodCallException(sprintf('Method %s::%s does not exist.', static::class, $calledMethod));
         // @codeCoverageIgnoreEnd
     }
 
@@ -254,7 +257,7 @@ class Active
      * @param  string  $value  The string value
      * @param  bool|null  $persistent Whether to reset the value after the next check
      */
-    public function setActiveValue(string $value = null, bool $persistent = null):  Active
+    public function setActiveValue(string $value = null, bool $persistent = null): Active
     {
         $this->activeValue = $value;
         if (null !== $persistent) {

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace Arcesilas\ActiveState\Tests;
+
 use Arcesilas\ActiveState\{
     ActiveFacade,
     ActiveStateServiceProvider
