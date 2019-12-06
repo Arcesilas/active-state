@@ -12,7 +12,14 @@ build:
             environment:
                 php:
                     version: "7.3"
+        php73:
+            environment:
+                php:
+                    version: "7.4"
         analysis:
+            environment:
+                php:
+                    version: "7.3"
             tests:
                 override:
                     - php-scrutinizer-run
