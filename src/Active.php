@@ -79,7 +79,7 @@ class Active
      * @param  string[] $patterns Patterns to match
      * @return bool
      */
-    public function checkPathIs(...$patterns)
+    public function checkPathIs(...$patterns): bool
     {
         return $this->request->is(...$patterns);
     }
@@ -89,7 +89,7 @@ class Active
      * @param  string[]  $patterns
      * @return bool
      */
-    public function checkPathHas(...$patterns)
+    public function checkPathHas(...$patterns): bool
     {
         return $this->request->is(array_map(
             function ($item) {
@@ -105,7 +105,7 @@ class Active
      * @param  array         $routeParameters The route parameters, used to build the url
      * @return bool
      */
-    public function checkRouteIs($route, array $routeParameters = [])
+    public function checkRouteIs($route, array $routeParameters = []): bool
     {
         if (!is_array($route)) {
             $route = [$route => $routeParameters];
@@ -128,7 +128,7 @@ class Active
      * @param  string[]  $routes
      * @return bool
      */
-    public function checkRouteIn(...$routes)
+    public function checkRouteIn(...$routes): bool
     {
         return $this->request->routeIs(...$routes);
     }
@@ -139,7 +139,7 @@ class Active
      * @param  array  $parameters
      * @return bool
      */
-    public function checkQueryIs(array ...$parameters)
+    public function checkQueryIs(array ...$parameters): bool
     {
         foreach ($parameters as $params) {
             if ($this->request->query->all() == $params) {
@@ -154,7 +154,7 @@ class Active
      * @param  array  $parameters
      * @return bool
      */
-    public function checkQueryHas(...$parameters)
+    public function checkQueryHas(...$parameters): bool
     {
         $queryKeys = array_keys($this->request->query->all());
         return empty(
@@ -168,7 +168,7 @@ class Active
      * @param  string[]  $parameters string
      * @return bool
      */
-    public function checkQueryHasOnly(...$parameters)
+    public function checkQueryHasOnly(...$parameters): bool
     {
         $queryKeys = array_keys($this->request->query->all());
         sort($queryKeys);
@@ -182,7 +182,7 @@ class Active
      * @param  array  $parameters  The parameters to check for
      * @return bool
      */
-    public function checkQueryContains($parameters)
+    public function checkQueryContains($parameters): bool
     {
         return empty(
             array_diff($parameters, $this->request->query->all())
@@ -190,21 +190,15 @@ class Active
     }
 
     /**
-     * Common check function
-     * @param  string  $check  The check method to use
-     * @param  array  $arguments  Arguments to check with
-     * @return string
+     * Dynamically calls :
+     *   - `if*` tests
+     *   - `checkNot*` tests
      */
-    protected function check($check, array $arguments)
-    {
-        return $this->getState(call_user_func_array([$this, $check], $arguments));
-    }
-
     public function __call($calledMethod, array $arguments)
     {
         if (0 === strpos($calledMethod, 'if')) {
             $check = 'check' . substr($calledMethod, 2);
-            return call_user_func_array([$this, 'check'], [$check, $arguments]);
+            return $this->getState($this->$check(...$arguments));
         }
 
         if (0 === strpos($calledMethod, 'checkNot')) {
@@ -224,7 +218,7 @@ class Active
      * @param  bool  $active
      * @return string
      */
-    public function getState($active)
+    public function getState(bool $active): string
     {
         return $active ? $this->getActiveValue() : $this->getInactiveValue();
     }
@@ -233,7 +227,7 @@ class Active
      * Returns the active state string
      * @return string
      */
-    public function getActiveValue()
+    public function getActiveValue(): string
     {
         $return = $this->activeValue ?? config('active.active_state', 'active');
         if (! $this->activeValuePersistent) {
@@ -246,7 +240,7 @@ class Active
      * Return the inactive state string
      * @return string
      */
-    public function getInactiveValue()
+    public function getInactiveValue(): string
     {
         $return = $this->inactiveValue ?? config('active.inactive_state', '');
         if (! $this->inactiveValuePersistent) {
@@ -260,12 +254,14 @@ class Active
      * @param  string  $value  The string value
      * @param  bool|null  $persistent Whether to reset the value after the next check
      */
-    public function setActiveValue($value = null, $persistent = null)
+    public function setActiveValue(string $value = null, bool $persistent = null):  Active
     {
         $this->activeValue = $value;
         if (null !== $persistent) {
             $this->activeValuePersistent = (bool) $persistent;
         }
+
+        return $this;
     }
 
     /**
@@ -273,36 +269,39 @@ class Active
      * @param  string  $value      The string value
      * @param  bool|null  $persistent Whether to reset the value after the next check
      */
-    public function setInactiveValue($value = null, $persistent = null)
+    public function setInactiveValue(string $value = null, bool $persistent = null): Active
     {
         $this->inactiveValue = $value;
         if (null !== $persistent) {
             $this->inactiveValuePersistent = (bool) $persistent;
         }
+
+        return $this;
     }
 
     /**
-     * Change active and inactive state at runtime and allow method chaining
-     * @param  string $active_state
-     * @param  string $inactive_state
+     * Change active and inactive values at runtime and allow method chaining
+     * @param  string $activeValue
+     * @param  string $inactiveValue
      * @return Active
      */
-    public function state(string $active_state, string $inactive_state = null)
+    public function setValues(string $activeValue = null, string $inactiveValue = null): Active
     {
-        $this->setActiveValue($active_state, false);
-        if ($inactive_state) {
-            $this->setInactiveValue($inactive_state, false);
-        }
+        $activeValue and $this->setActiveValue($activeValue);
+        $inactiveValue and $this->setInactiveValue($inactiveValue);
+
         return $this;
     }
 
     /**
      * Reset both active and inactive state strings
      */
-    public function resetValues()
+    public function resetValues(): Active
     {
         $this->activeValue = null;
         $this->inactiveValue = null;
+
+        return $this;
     }
 
     //--------------------
@@ -310,46 +309,57 @@ class Active
     //--------------------
 
     /**
-    * Alias of ifPathHas()
-    * @deprecated v4.0
-    * @see self::ifPathHas()
-    * @codeCoverageIgnore
-    */
-    public function ifUrlIs(...$patterns)
-    {
-        return $this->ifPathHas(...$patterns);
-    }
-
-    /**
-    * Alias of ifPathHas()
     * @deprecated v4.0
     * @see self::ifPathIs()
-    * @codeCoverageIgnore
+    *
+    * {@inheritdoc}
     */
-    public function ifUrlHas(...$patterns)
+    public function ifUrlIs(...$patterns): string
     {
         return $this->ifPathIs(...$patterns);
     }
 
     /**
-    * Alias of `checkPathIs()`
+    * @deprecated v4.0
+    * @see self::ifPathHas()
+    *
+    * {@inheritdoc}
+    */
+    public function ifUrlHas(...$patterns): string
+    {
+        return $this->ifPathHas(...$patterns);
+    }
+
+    /**
     * @deprecated v4.0
     * @see self::checkPathIs()
-    * @codeCoverageIgnore
+    *
+    * {@inheritdoc}
     */
-    public function checkUrlIs(...$urls)
+    public function checkUrlIs(...$urls): bool
     {
         return $this->checkPathIs(...$urls);
     }
 
     /**
-    * Alias of `checkPathHas()`
     * @deprecated v4.0
     * @see self::checkPathHas()
-    * @codeCoverageIgnore
+    *
+    * {@inheritdoc}
     */
-    public function checkUrlHas(...$urls)
+    public function checkUrlHas(...$urls): bool
     {
         return $this->checkPathHas(...$urls);
+    }
+
+    /**
+     * @deprecated v4.0
+     * @see self::setValues()
+     *
+     * {@inheritdoc}
+     */
+    public function state(string $active_state = null, string $inactive_state = null): Active
+    {
+        return $this->setValues($active_state, $inactive_state);
     }
 }
