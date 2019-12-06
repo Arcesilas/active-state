@@ -24,7 +24,7 @@ class RouteTest extends BladeDirectivesTestCase
     /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckRouteTest::singleRouteIsProvider */
     public function testSingleRouteIs($requestUrl, $expected, $routeUri, $routeParameters)
     {
-        $this->init($requestUrl, $routeUri,);
+        $this->init($requestUrl, $routeUri);
         $this->assertSame(
             $this->expected($expected),
             view('route_is', ['route' => 'route.test', 'parameters' => $routeParameters])->render()
