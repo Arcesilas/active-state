@@ -12,7 +12,7 @@ build:
             environment:
                 php:
                     version: "7.3"
-        php73:
+        php74:
             environment:
                 php:
                     version: "7.4"
