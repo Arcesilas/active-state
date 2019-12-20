@@ -51,7 +51,19 @@ Maybe you just need the [cheatsheet](docs/cheatsheet.md)?
 
 ### Install with Composer
 ```shell
-composer require arcesilas/active-state:^2.0
+composer require arcesilas/active-state:^4.0
+```
+
+Version 4 is currently in alpha version. If your configuration requires higher than alpha, make sure to specify the full version:
+
+```shell
+composer require arcesilas/active-state:^4.0.0-alpha
+```
+
+If you want the latest release:
+
+```shell
+composer require arcesilas/active-state:@dev-develop-v4
 ```
 
 ### Use it in your views
