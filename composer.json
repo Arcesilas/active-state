@@ -43,6 +43,9 @@
             "aliases": {
                 "Active": "Arcesilas\\ActiveState\\ActiveFacade"
             }
+        },
+        "branch-alias": {
+            "dev-develop-v4": "4.0.x-dev"
         }
     }
 }
