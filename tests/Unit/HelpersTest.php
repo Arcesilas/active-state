@@ -1,71 +1,105 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Arcesilas\ActiveState\Tests\Unit;
 
-use Prophecy\Argument;
-use PHPUnit\Framework\TestCase;
-use Arcesilas\ActiveState\Active;
-use Illuminate\Container\Container;
-use Illuminate\Foundation\Application;
-use PHPUnit\Framework\AssertionFailedError;
-use Prophecy\Prediction\CallbackPrediction;
+use Arcesilas\ActiveState\{
+    Active,
+    Tests\TestCase
+};
+use Illuminate\Http\Request as HttpRequest;
 
 class HelpersTest extends TestCase
 {
-    protected $app;
-
-    protected $active;
-
-    public function setUp()
+    protected function getActiveMock($method, $arguments)
     {
-        $this->app = new Application(__DIR__);
-        Container::setinstance($this->app);
+        $active = $this->getMockBuilder(Active::class)
+            ->disableOriginalConstructor()
+            ->setMethods([$method])
+            ->getMock();
 
-        $this->active = $this->prophesize(Active::class);
-
-        $this->app['active-state'] = $this->active->reveal();
+        return $active;
     }
 
-    protected function predict($helper, $argument)
+
+    /**
+     * @dataProvider predictionsProvider
+     * @covers ::active_path_is
+     * @covers ::active_path_has
+     * @covers ::active_route_is
+     * @covers ::active_route_in
+     * @covers ::active_query_is
+     * @covers ::active_query_has
+     * @covers ::active_query_has_only
+     * @covers ::active_query_contains
+     * @covers ::active_not_path_is
+     * @covers ::active_not_path_has
+     * @covers ::active_not_route_is
+     * @covers ::active_not_route_in
+     * @covers ::active_not_query_is
+     * @covers ::active_not_query_has
+     * @covers ::active_not_query_has_only
+     * @covers ::active_not_query_contains
+     */
+    public function testHelpers($helper, $method, $arguments)
     {
-        $this->active->$helper(Argument::exact($argument))->shouldBecalledTimes(1);
+        $active = $this->getActiveMock($method, $arguments);
+
+        $active->expects($this->once())
+            ->method($method)
+            ->with(...$arguments);
+
+        app()['active-state'] = $active;
+
+        call_user_func_array($helper, $arguments);
     }
 
     public function predictionsProvider()
     {
-        // [$helper, $activeMethod, $arguments, $argsInArray]
+        // [$helper, $method, $arguments]
         return [
-            ['active_url_is', 'ifUrlIs', 'foo/bar', false],
-            ['active_url_has', 'ifUrlHas', 'foo/bar', false],
-            ['active_route_is', 'ifRouteIs', ['foo.bar', []], true],
-            ['active_route_in', 'ifRouteIn', 'foo.bar', false],
-            ['active_query_is', 'ifQueryIs', ['arg1' => 'val1'], false],
-            ['active_query_has', 'ifQueryHas', ['arg1'], false],
-            ['active_query_has_only', 'ifQueryHasOnly', ['arg1'], false],
-            ['active_query_contains', 'ifQueryContains', ['arg1' => 'val1'], false]
+            'active_path_is()'            => ['active_path_is', 'ifPathIs', ['foo/bar']],
+            'active_path_has()'           => ['active_path_has', 'ifPathHas', ['foo/bar']],
+            'active_route_is()'           => ['active_route_is', 'ifRouteIs', ['foo.bar', []]],
+            'active_route_in()'           => ['active_route_in', 'ifRouteIn', ['foo.bar']],
+            'active_query_is()'           => ['active_query_is', 'ifQueryIs', [['arg1' => 'val1']]],
+            'active_query_has()'          => ['active_query_has', 'ifQueryHas', [['arg1']]],
+            'active_query_has_only()'     => ['active_query_has_only', 'ifQueryHasOnly', [['arg1']]],
+            'active_query_contains()'     => ['active_query_contains', 'ifQueryContains', [['arg1' => 'val1']]],
+            'active_not_path_is()'        => ['active_not_path_is', 'ifNotPathIs', ['foo/bar']],
+            'active_not_path_has()'       => ['active_not_path_has', 'ifNotPathHas', ['foo/bar']],
+            'active_not_route_is()'       => ['active_not_route_is', 'ifNotRouteIs', ['foo.bar', []]],
+            'active_not_route_in()'       => ['active_not_route_in', 'ifNotRouteIn', ['foo.bar']],
+            'active_not_query_is()'       => ['active_not_query_is', 'ifNotQueryIs', [['arg1' => 'val1']]],
+            'active_not_query_has()'      => ['active_not_query_has', 'ifNotQueryHas', [['arg1']]],
+            'active_not_query_has_only()' => ['active_not_query_has_only', 'ifNotQueryHasOnly', [['arg1']]],
+            'active_not_query_contains()' => ['active_not_query_contains', 'ifNotQueryContains', [['arg1' => 'val1']]],
         ];
     }
 
     /**
-     * @dataProvider predictionsProvider
+     * @dataProvider deprecatedHelpersProvider
+     * @covers ::active_url_is
+     * @covers ::active_url_has
      */
-    public function testHelpers($helper, $activeMethod, $argument, $argsInArray)
+    public function testDeprecatedHelpers($helper, $method)
     {
-        // PHPUnit cannot handle variable number of arguments in dataProviders, we have to do it ourselves
-        $predictionArguments = [];
-        if ($argsInArray) {
-            foreach ($argument as $arg) {
-                $predictionArguments[] = Argument::exact($arg);
-            }
-        } else {
-            $predictionArguments = [Argument::exact($argument)];
-        }
+        $active = $this->getActiveMock($method, 'foo/bar');
+        $active->expects($this->once())
+            ->method($method)
+            ->with('foo/bar');
 
-        $this->active->$activeMethod(...$predictionArguments)->shouldBeCalledTimes(1);
-        if ($argsInArray) {
-            call_user_func_array($helper, $argument);
-        } else {
-            call_user_func($helper, $argument);
-        }
+        app()['active-state'] = $active;
+
+        call_user_func($helper, 'foo/bar');
+    }
+
+    public function deprecatedHelpersProvider()
+    {
+        return [
+            'active_url_is'      => ['active_url_is', 'ifPathIs'],
+            'active_url_has'     => ['active_url_has', 'ifPathHas'],
+        ];
     }
 }

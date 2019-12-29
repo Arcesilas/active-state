@@ -13,50 +13,52 @@ $app['active-state']->checkRouteIn('users.list');
 app('active-state')->checkRouteIn('users.list');
 ```
 
-## URL checks
+## Path checks
 
-You can make several checks against the current request URL:
+:warning: Prior to version 3.0, the term `url` was used instead of `path`: actually, the checks did not concern the url, bu only the path, this means the query string was not concerned. In version 3 the checks still concern the path, but they have been renamed to better reflect the reality. Please see [upgrade information](upgrade.md)
 
-### Check URL is exactly a value
+You can make several checks against the current request path:
 
-To check if the URL is exactly the given value:
+### Check path is exactly a value
+
+To check if the path is exactly the given value:
 
 With URL `http://example.com/foo/bar`:
 ```php
-Active::checkUrlIs('foo/bar') // true
+Active::checkPathIs('foo/bar') // true
 ```
 you can use wildcards:
 ```php
-Active::checkUrlIs('foo/*') // true
+Active::checkPathIs('foo/*') // true
 ```
 
 You can also check multiple urls, and mix with wildcards.
 
 With URL `http://example.com/news/2017/11/some-article-slug`:
 ```php
-Active::checkUrl('news/*', 'article/*') // true
+Active::checkPathIs('news/*', 'article/*') // true
 ```
 
-### Check URL contains a string
+### Check path contains a string
 
 To check the URL contains a string, regardless its position in the URL string:
 
 With URL `http://example.com/news/2017/11/some-article-slug`
 ```php
-Active::checkUrlHas('2017') // true
+Active::checkPathHas('2017') // true
 ```
 
 Once again, you can pass more than one string to search:
 
 With url: `http://example.com/news/2016/some-article-slug`
 ```php
-Active::checkUrlHas('2017', '2018', 'article') // true
+Active::checkPathHas('2017', '2018', 'article') // true
 ```
 
 Note that while it's possible to use wildcards here, it does not really make sense, since the following examples are strictly equivalent:
 ```php
-Active::checkUrlIs('*something*')
-Active::checkUrlHas('something')
+Active::checkPathIs('*something*')
+Active::checkPathHas('something')
 ```
 
 ## Route checks

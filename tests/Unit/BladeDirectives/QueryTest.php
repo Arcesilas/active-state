@@ -1,123 +1,88 @@
 <?php
 
-namespace Arcesilas\ActiveState\Tests\Feature\BladeDirectivesTests;
+declare(strict_types=1);
 
-use Illuminate\Foundation\Application;
+namespace Arcesilas\ActiveState\Tests\Unit\BladeDirectives;
+
+use Arcesilas\ActiveState\Tests\TestCase;
 use Illuminate\Http\Request as HttpRequest;
-use Arcesilas\ActiveState\ActiveFacade as Active;
 
 class QueryTest extends BladeDirectivesTestCase
 {
-    public function setUp()
-    {
-        $this->app = new Application(__DIR__);
-
-        $this->initBlade();
-        $this->loadActiveStateServiceProvider();
-
-        if (!class_exists('Active')) {
-            class_alias(Active::class, 'Active');
-        }
-    }
-
-    protected function init($requestUrl)
-    {
-        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
-    }
-
-    /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryIs::getData()
-     */
+    /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckQueryTest::queryIsProvider */
     public function testQueryIs($requestUrl, $expected, array $params)
     {
-        $this->init($requestUrl);
+        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
         $this->assertEquals(
             $this->expected($expected),
             view('query_is', ['params' => $params])->render()
         );
     }
 
-    /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryIs::getData()
-     */
+    /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckQueryTest::queryIsProvider */
     public function testNotQueryIs($requestUrl, $expected, array $params)
     {
-        $this->init($requestUrl);
+        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
         $this->assertEquals(
             $this->expected(! $expected),
             view('not_query_is', ['params' => $params])->render()
         );
     }
 
-    /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryHas::getData()
-     */
+    /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckQueryTest::queryHasProvider */
     public function testQueryHas($requestUrl, $expected, array $params)
     {
-        $this->init($requestUrl);
+        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
         $this->assertEquals(
             $this->expected($expected),
             view('query_has', ['params' => $params])->render()
         );
     }
 
-    /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryHas::getData()
-     */
+    /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckQueryTest::queryHasProvider */
     public function testNotQueryHas($requestUrl, $expected, array $params)
     {
-        $this->init($requestUrl);
+        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
         $this->assertEquals(
             $this->expected(! $expected),
             view('not_query_has', ['params' => $params])->render()
         );
     }
 
-    /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryHasOnly::getData()
-     */
+    /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckQueryTest::queryHasOnlyProvider */
     public function testQueryHasOnly($requestUrl, $expected, array $params)
     {
-        $active = $this->init($requestUrl);
-
+        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
         $this->assertEquals(
             $this->expected($expected),
             view('query_has_only', ['params' => $params])->render()
         );
     }
 
-    /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryHasOnly::getData()
-     */
+    /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckQueryTest::queryHasOnlyProvider */
     public function testNotQueryHasOnly($requestUrl, $expected, array $params)
     {
-        $active = $this->init($requestUrl);
-
+        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
         $this->assertEquals(
             $this->expected(! $expected),
             view('not_query_has_only', ['params' => $params])->render()
         );
     }
 
-    /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryContains::getData()
-     */
+    /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckQueryTest::queryContainsProvider */
     public function testQueryContains($requestUrl, $expected, array $params)
     {
-        $active = $this->init($requestUrl);
+        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
         $this->assertEquals(
             $this->expected($expected),
             view('query_contains', ['params' => $params])->render()
         );
     }
 
-    /**
-     * @dataProvider Arcesilas\ActiveState\Tests\DataProviders\QueryContains::getData()
-     */
+    /** @dataProvider Arcesilas\ActiveState\Tests\Unit\Active\CheckQueryTest::queryContainsProvider */
     public function testNotQueryContains($requestUrl, $expected, array $params)
     {
-        $active = $this->init($requestUrl);
-
+        $this->app['request'] = HttpRequest::create('http://example.com/'.$requestUrl);
         $this->assertEquals(
             $this->expected(! $expected),
             view('not_query_contains', ['params' => $params])->render()

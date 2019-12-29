@@ -12,7 +12,10 @@ class ActiveStateServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        /** @codeCoverageIgnoreStart */
+
         // Directive: @url_is(...$url)
+        // Alias of @path_is()
         // Check current url is one of the given ones
         Blade::if(
             config('active.blade.url_is', 'url_is'),
@@ -22,6 +25,7 @@ class ActiveStateServiceProvider extends ServiceProvider
         );
 
         // Directive: @not_url_is(...$url)
+        // Alias of @not_path_is
         // Check current url is NOT one of the given ones
         Blade::if(
             config('active.blade.not_url_is', 'not_url_is'),
@@ -31,6 +35,7 @@ class ActiveStateServiceProvider extends ServiceProvider
         );
 
         // Directive: @url_has($url)
+        // Alias of @path_has
         // Check current url contains one of the given patterns
         Blade::if(
             config('active.blade.url_has', 'url_has'),
@@ -39,11 +44,50 @@ class ActiveStateServiceProvider extends ServiceProvider
             }
         );
 
+        /** @codeCoverageIgnoreEnd */
+
         // Directive: @url_has_not($url)
+        // Alias of @not_path_has
         Blade::if(
             config('active.blade.not_url_has', 'not_url_has'),
             function (...$url) {
                 return ! $this->app['active-state']->checkUrlHas(...$url);
+            }
+        );
+
+        // Directive: @path_is(...$paths)
+        // Check current path is one of the given ones
+        Blade::if(
+            config('active.blade.path_is', 'path_is'),
+            function (...$paths) {
+                return $this->app['active-state']->checkPathIs(...$paths);
+            }
+        );
+
+        // Directive: @not_path_is(...$paths)
+        // Check current url is NOT one of the given ones
+        Blade::if(
+            config('active.blade.not_path_is', 'not_path_is'),
+            function (...$paths) {
+                return ! $this->app['active-state']->checkPathIs(...$paths);
+            }
+        );
+
+        // Directive: @path_has($paths)
+        // Check current url contains one of the given patterns
+        Blade::if(
+            config('active.blade.path_has', 'path_has'),
+            function (...$paths) {
+                return $this->app['active-state']->checkPathHas(...$paths);
+            }
+        );
+
+        // Directive: @path_has_not($paths)
+        // Check current url does not contain the given patterns
+        Blade::if(
+            config('active.blade.not_path_has', 'not_path_has'),
+            function (...$paths) {
+                return ! $this->app['active-state']->checkPathHas(...$paths);
             }
         );
 
@@ -144,7 +188,7 @@ class ActiveStateServiceProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__.'/config/active.php' => config_path('active.php'),
+            __DIR__ . '/config/active.php' => config_path('active.php'),
         ], 'config');
     }
 
@@ -154,11 +198,11 @@ class ActiveStateServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->singleton('active-state', function ($app) {
-            return new \Arcesilas\ActiveState\Active($app->make('request'));
+            return new Active($app->make('request'));
         });
 
         $this->mergeConfigFrom(
-            __DIR__.'/config/active.php',
+            __DIR__ . '/../config/active.php',
             'active'
         );
     }

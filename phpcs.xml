@@ -5,13 +5,10 @@
     <arg name="basepath" value="./"/>
 
     <rule ref="PSR1"/>
-    <rule ref="PSR2"/>
+    <rule ref="PSR12"/>
 
-    <file>.</file>
+    <file>src/</file>
 
     <!-- Exclude vendor directory and node_modules-->
-    <exclude-pattern>vendor/</exclude-pattern>
-    <exclude-pattern>node_modules/</exclude-pattern>
-    <exclude-pattern>.coverage</exclude-pattern>
     <exclude-pattern>*.blade.php</exclude-pattern>
 </ruleset>
