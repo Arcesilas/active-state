@@ -95,5 +95,5 @@ Check route name is `posts` and `slug` parameter is a given value:
 Check query string contains argument `foo` with value `bar`:
 
 ```blade
-<a class="nav-link {{Active::ifQueryHas('videos.category', ['slug' => $category->slug])}}" href="{{ route('videos.category', $category->slug) }}">
+<a class="nav-link {{Active::ifUrlContains(['slug' => $category->slug])}}" href="{{ route('videos.category', $category->slug) }}">
 ```
